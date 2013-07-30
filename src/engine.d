@@ -49,19 +49,19 @@ class Engine {
 
   Component[int] GetComponents(T)()
     if (is(T:Component)) {
-    if (typeid(T).toString() in components) return components[typeid(T).toString()];
+    if ((typeid(T).toString() in components)) return components[typeid(T).toString()];
     return null;
   }
 
   T GetComponent(T)()
     if (is(T:Component)) {
-    if (typeid(T).toString() in components) return cast(T)components[typeid(T).toString()][components[typeid(T).toString()].keys[0]];
+    if ((typeid(T).toString() in components)) return cast(T)components[typeid(T).toString()][components[typeid(T).toString()].keys[0]];
     return null;
   }
 
   T GetComponent(T)(int id) 
     if (is(T:Component)) {
-    if (typeid(T).toString() in components && id in components[typeid(T).toString()]) return cast(T)components[typeid(T).toString()][id];
+    if ((typeid(T).toString() in components) && (id in components[typeid(T).toString()])) return cast(T)components[typeid(T).toString()][id];
     return null;
   }
 
@@ -71,7 +71,7 @@ class Engine {
   }
 
   private void DestroyComponent(int id, string type) {
-    if (type in components && id in components[type]) {
+    if ((type in components) && (id in components[type])) {
       components[type].remove(id);
       if (type in drawList) {
         Drawable r = drawList[type][id];
@@ -83,7 +83,7 @@ class Engine {
           }
         }
       }
-      if (type in updateList) {
+      if ((type in updateList)) {
         updateList[type].remove(id);
       }
     }
