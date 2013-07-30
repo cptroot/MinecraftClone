@@ -8,6 +8,7 @@ import std.file;
 import std.conv;
 
 import engine;
+import triangle;
 
 void main(string[] args) {
   version (OSX)
@@ -42,7 +43,7 @@ void main(string[] args) {
   /* Turn on double buffering with a 24bit Z buffer.
    * You may need to change this to 16 or 32 for your system */
   SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
-  //SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 16);
+  SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 16);
   auto mainwindow = SDL_CreateWindow("Derelict Test", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
     512, 512, SDL_WINDOW_OPENGL);
   auto maincontext = SDL_GL_CreateContext(mainwindow);
@@ -60,6 +61,11 @@ void main(string[] args) {
   }
 
   auto engine = new Engine(mainwindow);
+
+  auto triangle = new Triangle();
+  triangle.LoadResources();
+  engine.AddComponent(triangle);
+
 	engine.Run();
   return ;
 

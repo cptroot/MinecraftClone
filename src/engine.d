@@ -121,6 +121,8 @@ class Engine {
 
     SDL_SetWindowTitle(window, toStringz(title));
 
+    glClearColor(0, 0, 0, 0);
+
     this.window = window;
 
     instance = this;
@@ -155,7 +157,7 @@ class Engine {
   }
 
   void Draw() {
-		//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT/* | GL_STENCIL_BUFFER_BIT*/);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT/* | GL_STENCIL_BUFFER_BIT*/);
     foreach (d; drawOrder) {
       d.Draw();
     }

@@ -192,6 +192,10 @@
   <File path="src\component.d" />
   <File path="src\engine.d" />
   <File path="src\error.d" />
+  <File path="gl_shader.d" />
   <File path="src\main.d" />
+  <File path="triangle.d" />
+  <File path="triangle_shader.frag" />
+  <File path="triangle_shader.vert" />
  </Folder>
 </DProject>
