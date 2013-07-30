@@ -7,17 +7,117 @@ import std.conv;
 import std.typecons;
 import std.math : sin, cos, PI;
 
+import engine;
+import camera;
 import component;
 import gl_shader;
 
-class Triangle : Drawable, Component, Updateable {
+alias Engine.instance iEngine;
+
+class Triangle : Drawable, Component {
+
+
+
   const float vertexData[] = [
-    0.0f,    0.5f, 0.0f, 1.0f,
-    0.5f, -0.366f, 0.0f, 1.0f,
-   -0.5f, -0.366f, 0.0f, 1.0f,
-    1.0f,    0.0f, 0.0f, 1.0f,
-    0.0f,    1.0f, 0.0f, 1.0f,
-    0.0f,    0.0f, 1.0f, 1.0f,
+    0.25f,  0.25f, -1.25f, 1.0f,
+    0.25f, -0.25f, -1.25f, 1.0f,
+    -0.25f,  0.25f, -1.25f, 1.0f,
+
+    0.25f, -0.25f, -1.25f, 1.0f,
+    -0.25f, -0.25f, -1.25f, 1.0f,
+    -0.25f,  0.25f, -1.25f, 1.0f,
+
+    0.25f,  0.25f, -2.75f, 1.0f,
+    -0.25f,  0.25f, -2.75f, 1.0f,
+    0.25f, -0.25f, -2.75f, 1.0f,
+
+    0.25f, -0.25f, -2.75f, 1.0f,
+    -0.25f,  0.25f, -2.75f, 1.0f,
+    -0.25f, -0.25f, -2.75f, 1.0f,
+
+    -0.25f,  0.25f, -1.25f, 1.0f,
+    -0.25f, -0.25f, -1.25f, 1.0f,
+    -0.25f, -0.25f, -2.75f, 1.0f,
+
+    -0.25f,  0.25f, -1.25f, 1.0f,
+    -0.25f, -0.25f, -2.75f, 1.0f,
+    -0.25f,  0.25f, -2.75f, 1.0f,
+
+    0.25f,  0.25f, -1.25f, 1.0f,
+    0.25f, -0.25f, -2.75f, 1.0f,
+    0.25f, -0.25f, -1.25f, 1.0f,
+
+    0.25f,  0.25f, -1.25f, 1.0f,
+    0.25f,  0.25f, -2.75f, 1.0f,
+    0.25f, -0.25f, -2.75f, 1.0f,
+
+    0.25f,  0.25f, -2.75f, 1.0f,
+    0.25f,  0.25f, -1.25f, 1.0f,
+    -0.25f,  0.25f, -1.25f, 1.0f,
+
+    0.25f,  0.25f, -2.75f, 1.0f,
+    -0.25f,  0.25f, -1.25f, 1.0f,
+    -0.25f,  0.25f, -2.75f, 1.0f,
+
+    0.25f, -0.25f, -2.75f, 1.0f,
+    -0.25f, -0.25f, -1.25f, 1.0f,
+    0.25f, -0.25f, -1.25f, 1.0f,
+
+    0.25f, -0.25f, -2.75f, 1.0f,
+    -0.25f, -0.25f, -2.75f, 1.0f,
+    -0.25f, -0.25f, -1.25f, 1.0f,
+
+
+
+
+    0.0f, 0.0f, 1.0f, 1.0f,
+    0.0f, 0.0f, 1.0f, 1.0f,
+    0.0f, 0.0f, 1.0f, 1.0f,
+
+    0.0f, 0.0f, 1.0f, 1.0f,
+    0.0f, 0.0f, 1.0f, 1.0f,
+    0.0f, 0.0f, 1.0f, 1.0f,
+
+    0.8f, 0.8f, 0.8f, 1.0f,
+    0.8f, 0.8f, 0.8f, 1.0f,
+    0.8f, 0.8f, 0.8f, 1.0f,
+
+    0.8f, 0.8f, 0.8f, 1.0f,
+    0.8f, 0.8f, 0.8f, 1.0f,
+    0.8f, 0.8f, 0.8f, 1.0f,
+
+    0.0f, 1.0f, 0.0f, 1.0f,
+    0.0f, 1.0f, 0.0f, 1.0f,
+    0.0f, 1.0f, 0.0f, 1.0f,
+
+    0.0f, 1.0f, 0.0f, 1.0f,
+    0.0f, 1.0f, 0.0f, 1.0f,
+    0.0f, 1.0f, 0.0f, 1.0f,
+
+    0.5f, 0.5f, 0.0f, 1.0f,
+    0.5f, 0.5f, 0.0f, 1.0f,
+    0.5f, 0.5f, 0.0f, 1.0f,
+
+    0.5f, 0.5f, 0.0f, 1.0f,
+    0.5f, 0.5f, 0.0f, 1.0f,
+    0.5f, 0.5f, 0.0f, 1.0f,
+
+    1.0f, 0.0f, 0.0f, 1.0f,
+    1.0f, 0.0f, 0.0f, 1.0f,
+    1.0f, 0.0f, 0.0f, 1.0f,
+
+    1.0f, 0.0f, 0.0f, 1.0f,
+    1.0f, 0.0f, 0.0f, 1.0f,
+    1.0f, 0.0f, 0.0f, 1.0f,
+
+    0.0f, 1.0f, 1.0f, 1.0f,
+    0.0f, 1.0f, 1.0f, 1.0f,
+    0.0f, 1.0f, 1.0f, 1.0f,
+
+    0.0f, 1.0f, 1.0f, 1.0f,
+    0.0f, 1.0f, 1.0f, 1.0f,
+    0.0f, 1.0f, 1.0f, 1.0f,
+
   ];
 
   uint positionBufferObject;
@@ -31,7 +131,6 @@ class Triangle : Drawable, Component, Updateable {
   @property float Depth() { return 1; };
 
   this() {
-    LoadResources();
   }
 
   void LoadResources() {
@@ -44,21 +143,18 @@ class Triangle : Drawable, Component, Updateable {
 
     shader = LoadProgram(["./triangle_shader.vert", "./triangle_shader.frag"], 
                          [GL_VERTEX_SHADER, GL_FRAGMENT_SHADER]);
+
+    Component[int] cameras = iEngine.GetComponents!Camera();
+
+    foreach (cCamera; cameras) {
+      Camera camera = cast(Camera)cCamera;
+      camera.AddShader(shader);
+    }
     
     offsetLocation = glGetUniformLocation(shader, "offset");
   }
 
   @property int ID() { return 1; };
-
-  bool Update(SDL_Event[] events) {
-    time += .016f;
-    if (time >= loopLength) time -= loopLength;
-
-    offset[0] = .3 * sin(time / loopLength * 2 * PI);
-    offset[1] = .3 * cos(time / loopLength * 2 * PI);
-
-    return false;
-  }
 
   void Draw() {
     glUseProgram(shader);
@@ -70,9 +166,10 @@ class Triangle : Drawable, Component, Updateable {
     glUniform2f(offsetLocation, offset[0], offset[1]);
 
     glVertexAttribPointer(0u, 4, GL_FLOAT, GL_FALSE, 0, cast(int*)0);
-    glVertexAttribPointer(1u, 4, GL_FLOAT, GL_FALSE, 0, cast(int*)48);
+    glVertexAttribPointer(1u, 4, GL_FLOAT, GL_FALSE, 0,
+                          cast(int*)(vertexData.length * float.sizeof / 2));
 
-    glDrawArrays(GL_TRIANGLES, 0, 3);
+    glDrawArrays(GL_TRIANGLES, 0, 36);
 
     glDisableVertexAttribArray(0);
     glDisableVertexAttribArray(1);

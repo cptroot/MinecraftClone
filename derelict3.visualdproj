@@ -189,6 +189,7 @@
   <filesToClean>*.obj;*.cmd;*.build;*.json;*.dep</filesToClean>
  </Config>
  <Folder name="derelict3">
+  <File path="src\camera.d" />
   <File path="src\component.d" />
   <File path="src\engine.d" />
   <File path="src\error.d" />
