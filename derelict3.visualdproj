@@ -177,7 +177,7 @@
   <cv2pdbOptions />
   <objfiles />
   <linkswitches />
-  <libfiles />
+  <libfiles>DerelictUtil.lib;DerelictSDL2.lib;DerelictGL3.lib;DerelictAL.lib;</libfiles>
   <libpaths />
   <deffile />
   <resfile />
@@ -192,6 +192,7 @@
   <File path="src\component.d" />
   <File path="src\engine.d" />
   <File path="src\error.d" />
+  <File path="src\game.d" />
   <File path="gl_shader.d" />
   <File path="src\main.d" />
   <File path="triangle.d" />

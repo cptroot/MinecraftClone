@@ -7,8 +7,7 @@ import std.stdio;
 import std.file;
 import std.conv;
 
-import engine;
-import triangle;
+import game;
 
 void main(string[] args) {
   version (OSX)
@@ -38,21 +37,20 @@ void main(string[] args) {
    * but it should default to the core profile */
   SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
   SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
-  //SDL_GL_SetAttribute(SDL_GL_ACCELERATED_VISUAL, 1);
+  SDL_GL_SetAttribute(SDL_GL_ACCELERATED_VISUAL, 1);
 
   /* Turn on double buffering with a 24bit Z buffer.
    * You may need to change this to 16 or 32 for your system */
   SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
   SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 16);
   auto mainwindow = SDL_CreateWindow("Derelict Test", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-    512, 512, SDL_WINDOW_OPENGL);
+    640, 480, SDL_WINDOW_OPENGL);
   auto maincontext = SDL_GL_CreateContext(mainwindow);
     SDL_GL_SetSwapInterval(1);
 
-  writeln(to!(string)(glGetString(GL_VERSION)));
+  //writeln(to!(string)(glGetString(GL_VERSION)));
   GLVersion glver = DerelictGL3.reload();
-  writeln(glver);
-  //SDL_Delay(2000);
+  //writeln(glver);
 
 
   scope(exit) {
@@ -60,13 +58,9 @@ void main(string[] args) {
 	  writeln("exiting");
   }
 
-  auto engine = new Engine(mainwindow);
+  auto game = new Game(mainwindow);
 
-  auto triangle = new Triangle();
-  triangle.LoadResources();
-  engine.AddComponent(triangle);
-
-	engine.Run();
+	game.Run();
   return ;
 
   writeln("Hello World");

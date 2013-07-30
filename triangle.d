@@ -8,10 +8,13 @@ import component;
 import gl_shader;
 
 class Triangle : Drawable, Component {
-  const float vertexPositions[] = [
-    0.75f,  0.75f, 0.0f, 1.0f,
-    0.75f, -0.75f, 0.0f, 1.0f,
-   -0.75f, -0.75f, 0.0f, 1.0f,
+  const float vertexData[] = [
+    0.0f,    0.5f, 0.0f, 1.0f,
+    0.5f, -0.366f, 0.0f, 1.0f,
+    -0.5f, -0.366f, 0.0f, 1.0f,
+    1.0f,    0.0f, 0.0f, 1.0f,
+    0.0f,    1.0f, 0.0f, 1.0f,
+    0.0f,    0.0f, 1.0f, 1.0f,
   ];
 
   uint positionBufferObject;
@@ -27,8 +30,8 @@ class Triangle : Drawable, Component {
     glGenBuffers(1, &positionBufferObject);
 
     glBindBuffer(GL_ARRAY_BUFFER, positionBufferObject);
-    glBufferData(GL_ARRAY_BUFFER, to!int(vertexPositions.length * float.sizeof),
-                 vertexPositions.ptr, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, to!int(vertexData.length * float.sizeof),
+                 vertexData.ptr, GL_STATIC_DRAW);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 
     shader = LoadProgram(["./triangle_shader.vert", "./triangle_shader.frag"], 
@@ -42,11 +45,14 @@ class Triangle : Drawable, Component {
 
     glBindBuffer(GL_ARRAY_BUFFER, positionBufferObject);
     glEnableVertexAttribArray(0);
+    glEnableVertexAttribArray(1);
     glVertexAttribPointer(0u, 4, GL_FLOAT, GL_FALSE, 0, cast(int*)0);
+    glVertexAttribPointer(1u, 4, GL_FLOAT, GL_FALSE, 0, cast(int*)48);
 
     glDrawArrays(GL_TRIANGLES, 0, 3);
 
     glDisableVertexAttribArray(0);
+    glDisableVertexAttribArray(1);
     glUseProgram(0);
   }
 }

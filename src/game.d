@@ -1,30 +1,19 @@
 import std.stdio;
 
-import derelict.opengl.gl;
+import derelict.opengl3.gl3;
+import derelict.sdl2.sdl;
 
 import engine;
-import player;
-import font;
-import wall;
-import input;
-import level;
+import triangle;
 
 class Game : Engine {
-  this() {
+  this(SDL_Window* window) {
     title = "Uprising";
 
-    super();
+    super(window);
 
-    AddComponent(new Keyboard());
-    AddComponent(new Mouse());
-
-    AddComponent(new Player());
-
-    Font f = new Font("images\\Font.fnt");
-    AddComponent(f);
-
-    AddComponent(new Level("levels\\level1.txt"));
-
-    glClearColor(.2f, .2f, .2f, 1);
+    auto triangle = new Triangle();
+    triangle.LoadResources();
+    this.AddComponent(triangle);
   }
 }
