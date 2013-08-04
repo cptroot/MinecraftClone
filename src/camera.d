@@ -22,20 +22,32 @@ class Camera : Component, Drawable {
   private Vector3 _position = tuple(0.0f, 0.0f, 0.0f);
   private SphereRot _rotation = tuple(0.0, 0.0);
 
-  @property ref Vector3 position() { return _position; }
-  @property Vector3 position(Vector3 pos) {
-    if (pos == _position) return _position;
-    _position = pos;
-    changed = true;
-    return _position;
+  @property Vector3 position() { return _position; }
+  @property void position(Vector3 pos) {
+    if (pos != _position) {
+      _position = pos;
+      changed = true;
+    }
+  }
+  @property void position(Tuple!(float, float, float) pos) {
+    if (pos != _position) {
+      _position = pos;
+      changed = true;
+    }
   }
 
-  @property ref SphereRot rotation() { return _rotation; }
-  @property SphereRot rotation(SphereRot rot) {
-    if (rot == _rotation) return _rotation;
-    _rotation = rot;
-    changed = true;
-    return _rotation;
+  @property SphereRot rotation() { return _rotation; }
+  @property void rotation(SphereRot rot) {
+    if (rot != _rotation) {
+      _rotation = rot;
+      changed = true;
+    }
+  }
+  @property void rotation(Tuple!(float, float) rot) {
+    if (rot != _rotation) {
+      _rotation = rot;
+      changed = true;
+    }
   }
 
   float changed = true;

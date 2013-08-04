@@ -8,9 +8,9 @@ interface Component {
 }
 
 interface Drawable {
-  void Draw();
   @property float Depth();
   void LoadResources();
+  void Draw();
 }
 
 interface Updateable {

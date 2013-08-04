@@ -15,8 +15,6 @@ import gl_shader;
 
 import matrix;
 
-alias Engine.instance iEngine;
-
 class Block : Drawable, Component {
 
   static const float vertexData[] = [

@@ -11,6 +11,8 @@ import derelict.sdl2.sdl;
 import component;
 import error;
 
+public alias Engine.instance iEngine;
+
 class Engine {
   static Engine instance;
   SDL_Window* window;

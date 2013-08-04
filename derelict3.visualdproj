@@ -198,6 +198,7 @@
   <File path="src\main.d" />
   <File path="block.d" />
   <File path="matrix.d" />
+  <File path="player.d" />
   <File path="triangle_shader.frag" />
   <File path="triangle_shader.vert" />
  </Folder>
