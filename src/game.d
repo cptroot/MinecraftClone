@@ -1,11 +1,13 @@
 import std.stdio;
+import std.typecons;
 
 import derelict.opengl3.gl3;
 import derelict.sdl2.sdl;
 
 import engine;
-import triangle;
+import block;
 import camera;
+import error;
 
 class Game : Engine {
   this(SDL_Window* window) {
@@ -17,10 +19,14 @@ class Game : Engine {
     glCullFace(GL_BACK);
     glFrontFace(GL_CW);
 
-    AddComponent(new Camera());
+    Camera camera = new Camera();
+    AddComponent(camera);
 
-    auto triangle = new Triangle();
-    triangle.LoadResources();
-    this.AddComponent(triangle);
+    camera.position = tuple(1.0f, 1.0f, 0.0f);
+    camera.rotation = tuple(0.3f, 0.1f);
+
+    auto block = new Block();
+    block.LoadResources();
+    this.AddComponent(block);
   }
 }

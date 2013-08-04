@@ -2,6 +2,7 @@ import std.stdio;
 import std.typecons;
 import std.string;
 import std.datetime;
+import core.memory;
 
 import derelict.opengl3.gl3;
 import derelict.openal.al;
@@ -102,10 +103,7 @@ class Engine {
       if (quitting) return;
       Draw();
 			SDL_GL_SwapWindow(window);
-      string s = GLError();
-      if (s != "") throw new Exception(s);
-      s = error.ALError();
-      if (s != "") throw new Exception(s);
+      GC.collect();
       taken = SDL_GetTicks() - oldTicks;
       if (taken < 16)
         SDL_Delay(16 - taken);

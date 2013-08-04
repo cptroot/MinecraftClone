@@ -196,7 +196,8 @@
   <File path="src\game.d" />
   <File path="gl_shader.d" />
   <File path="src\main.d" />
-  <File path="triangle.d" />
+  <File path="block.d" />
+  <File path="matrix.d" />
   <File path="triangle_shader.frag" />
   <File path="triangle_shader.vert" />
  </Folder>
