@@ -7,9 +7,7 @@ import derelict.opengl3.gl3;
 
 import component;
 import matrix;
-
-public alias Tuple!(float, "x", float, "y", float, "z") Vector3;
-public alias Tuple!(float, "theta", float, "phi") SphereRot;
+import constants;
 
 class Camera : Component, Drawable {
   @property override int ID() {
@@ -19,7 +17,7 @@ class Camera : Component, Drawable {
   static Matrix perspectiveMatrix;
 
   Matrix cameraMatrix;
-  private Vector3 _position = tuple(0.0f, 0.0f, 0.0f);
+  private Vector3 _position;
   private SphereRot _rotation = tuple(0.0, 0.0);
 
   @property Vector3 position() { return _position; }
@@ -29,11 +27,27 @@ class Camera : Component, Drawable {
       changed = true;
     }
   }
-  @property void position(Tuple!(float, float, float) pos) {
+  /*@property void position(Tuple!(float, float, float) pos) {
     if (pos != _position) {
       _position = pos;
       changed = true;
     }
+  }*/
+
+  @property Vector3 forward() {
+    Vector3 result;
+    result.z = -1.0f;
+    result *= rotationMatrix(false, rotation.phi, 1, 0, 0);
+    result *= rotationMatrix(false, rotation.theta, 0, 1, 0);
+    return result;
+  }
+
+  @property Vector3 left() {
+    Vector3 result;
+    result.x = -1.0f;
+    result *= rotationMatrix(false, rotation.phi, 1, 0, 0);
+    result *= rotationMatrix(false, rotation.theta, 0, 1, 0);
+    return result;
   }
 
   @property SphereRot rotation() { return _rotation; }
@@ -56,22 +70,17 @@ class Camera : Component, Drawable {
 
   @property float Depth() { return float.min; };
 
-	public {
-		float xpos = 0;
-		float ypos = 0;
-	}
-
   uint perspectiveMatrixUnif;
 
   this() {
     if (isNaN(perspectiveMatrix[0])) {
-      float fFrustumScale = 1.0f; float fzNear = 0.5f; float fzFar = 3.0f;
+      float fFrustumScale = 1.0f; float fzNear = 0.5f; float fzFar = 20.0f;
 
       perspectiveMatrix = new float[16];
 
       foreach (ref value; perspectiveMatrix) value = 0;
 
-      perspectiveMatrix[0] = fFrustumScale;
+      perspectiveMatrix[0] = fFrustumScale * height / width;
       perspectiveMatrix[5] = fFrustumScale;
       perspectiveMatrix[10] = (fzFar + fzNear) / (fzNear - fzFar);
       perspectiveMatrix[11] = (2 * fzFar * fzNear) / (fzNear - fzFar);
@@ -100,6 +109,7 @@ class Camera : Component, Drawable {
       cameraMatrix *= rotationMatrix(false, -rotation.theta, 0, 1, 0);
       cameraMatrix *= translationMatrix(false, -position.x, -position.y, -position.z);
       auto mat = perspectiveMatrix * cameraMatrix;
+      changed = false;
       foreach (shader; shaders) {
         glUseProgram(shader);
         glUniformMatrix4fv(perspectiveMatrixUnif, 1, true, mat.ptr);

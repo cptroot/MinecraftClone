@@ -34,13 +34,13 @@ class Block : Drawable, Component {
     2, 3, 0,
 
     4, 3, 2,
-    5, 4, 2,
+    2, 5, 4,
 
     4, 5, 6,
     6, 7, 4,
 
-    5, 3, 2,
-    2, 6, 5,
+    5, 2, 1,
+    1, 6, 5,
 
     1, 0, 7,
     7, 6, 1,
@@ -55,7 +55,7 @@ class Block : Drawable, Component {
 
   static uint worldMatrixLocation;
 
-  Tuple!(int, int, int) location = tuple(1, 1, -2);
+  Tuple!(int, int, int) location = tuple(1, -1, -2);
   float[] worldMatrix;
 
   @property float Depth() { return 1; };

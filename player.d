@@ -11,13 +11,15 @@ import component;
 import error;
 
 import camera;
+import matrix;
+import input;
 
 class Player : Component, Updateable {
   @property int ID() { return 0; }
 
   Camera camera;
 
-  auto rotation = SphereRot();
+  auto keyboard = new Keyboard();
 
   //auto screenSize;
 
@@ -25,24 +27,44 @@ class Player : Component, Updateable {
     camera = new Camera();
     iEngine.AddComponent(camera);
 
+    iEngine.AddComponent(keyboard);
 
+    position = Vector3(0.0f, 1.0f, 0.0f);
   }
 
   private bool result;
+
+  private auto position = Vector3();
+  private auto rotation = SphereRot();
 
   private int x, y;
   bool Update(SDL_Event[] events) {
     result = false;
 
-    foreach (event; events) {
-      switch (event.type) {
-        case SDL_KEYDOWN:
-          if (event.key.keysym.sym == SDLK_ESCAPE)
-            result = true;
-        default:
-          break;
-      }
+    if (keyboard.KeyPressed(SDLK_ESCAPE)) 
+      return true;
+
+    auto keys = ["a": keyboard.KeyDown(SDLK_a),
+      "d": keyboard.KeyDown(SDLK_d),
+      "w": keyboard.KeyDown(SDLK_w),
+      "s": keyboard.KeyDown(SDLK_s)];
+    if (keys["w"]) {
+      position = position + camera.forward * .1f;
     }
+
+    if (keys["s"]) {
+      position = position - camera.forward * .1f;
+    }
+
+    if (keys["a"]) {
+      position = position + camera.left * .1f;
+    }
+
+    if (keys["d"]) {
+      position = position - camera.left * .1f;
+    }
+
+    camera.position = position;
 
     SDL_GetMouseState(&x, &y);
 

@@ -1,7 +1,7 @@
 import std.stdio;
 import std.typecons;
 
-import derelict.sdl.sdl;
+import derelict.sdl2.sdl;
 
 import component;
 

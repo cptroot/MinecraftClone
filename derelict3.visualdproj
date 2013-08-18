@@ -189,16 +189,18 @@
   <filesToClean>*.obj;*.cmd;*.build;*.json;*.dep</filesToClean>
  </Config>
  <Folder name="derelict3">
+  <File path="src\block.d" />
   <File path="src\camera.d" />
   <File path="src\component.d" />
+  <File path="src\constants.d" />
   <File path="src\engine.d" />
   <File path="src\error.d" />
   <File path="src\game.d" />
-  <File path="gl_shader.d" />
+  <File path="src\gl_shader.d" />
+  <File path="src\input.d" />
   <File path="src\main.d" />
-  <File path="block.d" />
-  <File path="matrix.d" />
-  <File path="player.d" />
+  <File path="src\matrix.d" />
+  <File path="src\player.d" />
   <File path="triangle_shader.frag" />
   <File path="triangle_shader.vert" />
  </Folder>

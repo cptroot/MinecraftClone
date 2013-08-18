@@ -8,6 +8,7 @@ import std.file;
 import std.conv;
 
 import game;
+import constants;
 
 void main(string[] args) {
   version (OSX)
@@ -44,7 +45,7 @@ void main(string[] args) {
   SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
   SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 16);
   auto mainwindow = SDL_CreateWindow("Derelict Test", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-    640, 480, SDL_WINDOW_OPENGL);
+                                     to!int(width), to!int(height), SDL_WINDOW_OPENGL);
   auto maincontext = SDL_GL_CreateContext(mainwindow);
     SDL_GL_SetSwapInterval(1);
 
