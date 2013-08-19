@@ -201,7 +201,10 @@
   <File path="src\main.d" />
   <File path="src\matrix.d" />
   <File path="src\player.d" />
-  <File path="triangle_shader.frag" />
-  <File path="triangle_shader.vert" />
+  <File path="shaders\post_process.frag" />
+  <File path="shaders\post_process.vert" />
+  <File path="src\shaders.d" />
+  <File path="shaders\triangle_shader.frag" />
+  <File path="shaders\triangle_shader.vert" />
  </Folder>
 </DProject>

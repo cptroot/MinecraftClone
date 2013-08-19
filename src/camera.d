@@ -8,6 +8,9 @@ import derelict.opengl3.gl3;
 import component;
 import matrix;
 import constants;
+import engine;
+import shaders;
+import error;
 
 class Camera : Component, Drawable {
   @property override int ID() {
@@ -68,13 +71,15 @@ class Camera : Component, Drawable {
 
   uint[] shaders;
 
+  Shaders shaderHelper;
+
   @property float Depth() { return float.min; };
 
   uint perspectiveMatrixUnif;
 
   this() {
     if (isNaN(perspectiveMatrix[0])) {
-      float fFrustumScale = 1.0f; float fzNear = 0.5f; float fzFar = 20.0f;
+      float fFrustumScale = 1.0f; float fzNear = 0.2f; float fzFar = 20.0f;
 
       perspectiveMatrix = new float[16];
 
@@ -88,6 +93,8 @@ class Camera : Component, Drawable {
 
       cameraMatrix = identityMatrix.dup;
     }
+
+    shaderHelper = iEngine.GetComponent!Shaders();
   }
 
   void AddShader(uint shader) {
@@ -111,10 +118,10 @@ class Camera : Component, Drawable {
       auto mat = perspectiveMatrix * cameraMatrix;
       changed = false;
       foreach (shader; shaders) {
-        glUseProgram(shader);
+        shaderHelper.PushShader(shader);
         glUniformMatrix4fv(perspectiveMatrixUnif, 1, true, mat.ptr);
+        shaderHelper.PopShader();
       }
-      glUseProgram(0);
     }
   };
 }

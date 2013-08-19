@@ -30,23 +30,29 @@ class Engine {
 
   void AddComponent(T)(T component) 
     if (is(T:Component)) {
-    //if (typeid(T).toString() !in components) components[typeid(T).toString()] = new Component[string];
-    components[typeid(T).toString()][component.ID] = component;
+    string type = typeid(T).toString();
+    //if (type !in components) components[typeid(T).toString()] = new Component[string];
+    components[type][component.ID] = component;
     if (is(T:Drawable)) {
-      //if (typeid(T).toString() !in drawList) drawList[typeid(T).toString()] = [];
-      drawList[typeid(T).toString()][component.ID] = cast(Drawable)component;
+      Drawable temp;
+      if (type in drawList && component.ID in drawList[type])
+        temp = drawList[type][component.ID];
+      drawList[type][component.ID] = cast(Drawable)component;
       if (drawOrder.length > 0) {
         int i = 0;
         Drawable d = cast(Drawable)component;
-        while (i < drawOrder.length && drawOrder[i].Depth < d.Depth) i++;
-        drawOrder = drawOrder[0..i] ~ d ~ drawOrder[i..$];
+        while (i < drawOrder.length && drawOrder[i] !is temp && drawOrder[i].Depth < d.Depth) i++;
+        if (i < drawOrder.length && temp is drawOrder[i])
+          drawOrder[i] = d;
+        else 
+          drawOrder = drawOrder[0..i] ~ d ~ drawOrder[i..$];
       } else {
         drawOrder ~= cast(Drawable)component;
       }
     }
     if (is(T:Updateable)) {
       //if (typeid(T).toString() !in updateList) updateList[typeid(T).toString()] = [];
-      updateList[typeid(T).toString()][component.ID] = cast(Updateable)component;
+      updateList[type][component.ID] = cast(Updateable)component;
     }
   }
 
@@ -157,9 +163,14 @@ class Engine {
   }
 
   void Draw() {
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT/* | GL_STENCIL_BUFFER_BIT*/);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    PreProcess();
     foreach (d; drawOrder) {
       d.Draw();
     }
+    PostProcess();
   }
+
+  void PreProcess() {};
+  void PostProcess() {};
 }

@@ -2,7 +2,7 @@
 
 smooth in vec4 theColor;
 
-out vec4 outputColor;
+layout(location = 0) out vec4 outputColor;
 
 void main()
 {

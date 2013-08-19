@@ -1,4 +1,4 @@
 module constants;
 
-public const float width = 640f;
-public const float height = 480f;
+public const int width = 640;
+public const int height = 480;

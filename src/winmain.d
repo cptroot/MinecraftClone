@@ -1,7 +1,9 @@
-//module main;
+module main;
 
 import core.runtime;
 import core.sys.windows.windows;
+
+import main2;
 
 extern (Windows)
 int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
@@ -17,7 +19,7 @@ int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int n
     {
         Runtime.initialize(&exceptionHandler);
 
-        result = myWinMain(hInstance, hPrevInstance, lpCmdLine, nCmdShow);
+        result = myMain(hInstance, hPrevInstance, lpCmdLine, nCmdShow);
 
         Runtime.terminate(&exceptionHandler);
     }
@@ -28,11 +30,4 @@ int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int n
     }
 
     return result;
-}
-
-int myWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
-{
-    /* ... insert user code here ... */
-    //throw new Exception("not implemented");
-    return 0;
 }

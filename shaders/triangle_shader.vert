@@ -14,5 +14,6 @@ void main()
 	vec4 relPosition = position;
 	relPosition = worldMatrix * relPosition;
 	gl_Position = perspectiveMatrix * relPosition;
-    theColor = vec4(1.0f, 1.0f, 1.0f, 1.0f);
+    theColor = normal * .5 + vec4(.5, .5, .5, 0);
+	theColor.a = 1;
 }
