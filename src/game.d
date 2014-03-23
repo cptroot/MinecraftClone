@@ -20,7 +20,7 @@ class Game : Engine {
 
   uint sampler_loc;
 
-  const float[] vertexData = [
+  static const float[] vertexData = [
     1.0f, 1.0f,
     1.0f, -1.0f,
     -1.0f, 1.0f,
@@ -44,7 +44,7 @@ class Game : Engine {
     glEnable(GL_DEPTH_TEST);
 
     // Shader
-    shader = LoadProgram(["./shaders/triangle_shader.vert", "./shaders/triangle_shader.frag"], 
+    shader = LoadProgram(["./shaders/triangle_shader.vert", "./shaders/triangle_shader.frag"],
                          [GL_VERTEX_SHADER, GL_FRAGMENT_SHADER]);
     uint worldMatrixLocation = glGetUniformLocation(shader, "worldMatrix");
     glUseProgram(shader);
@@ -52,7 +52,7 @@ class Game : Engine {
     glUseProgram(0);
 
     //PostProcess Shader
-    post_shader = LoadProgram(["./shaders/post_process.vert", "./shaders/post_process.frag"], 
+    post_shader = LoadProgram(["./shaders/post_process.vert", "./shaders/post_process.frag"],
                               [GL_VERTEX_SHADER, GL_FRAGMENT_SHADER]);
     texture_loc = glGetUniformLocation(post_shader, "fbo_texture");
     depth_loc = glGetUniformLocation(post_shader, "fbo_depth");
@@ -156,7 +156,7 @@ class Game : Engine {
 
     glDisableVertexAttribArray(0);
     glBindTexture(GL_TEXTURE_2D, 0);
-    
+
     shaders.PopShader();
   }
 }

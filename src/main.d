@@ -29,13 +29,13 @@ int main(string[] args) {
   DerelictSDL2.load();
   DerelictGL3.load();
   DerelictAL.load();
- 
+
   if (SDL_Init(SDL_INIT_VIDEO) < 0) { /* Initialize SDL's Video subsystem */
     writeln("Unable to initialize SDL"); /* Or die on error */
     SDL_Quit();
     return 1;
   }
- 
+
   /* Request opengl 3.2 context.
    * SDL doesn't have the ability to choose which profile at this time of writing,
    * but it should default to the core profile */
@@ -48,8 +48,14 @@ int main(string[] args) {
    * You may need to change this to 16 or 32 for your system */
   SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
   SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
-  auto mainwindow = SDL_CreateWindow("Derelict Test", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-                                     width, height, SDL_WINDOW_OPENGL);
+
+  auto mainwindow = SDL_CreateWindow("Minecraft Clone",
+                                     SDL_WINDOWPOS_CENTERED,
+                                     SDL_WINDOWPOS_CENTERED,
+                                     width,
+                                     height,
+                                     SDL_WINDOW_OPENGL);
+
   auto maincontext = SDL_GL_CreateContext(mainwindow);
     SDL_GL_SetSwapInterval(1);
 
@@ -66,7 +72,4 @@ int main(string[] args) {
 
 	game.Run();
   return 0;
-
-  writeln("Hello World");
-
 }

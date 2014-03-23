@@ -73,7 +73,7 @@ class Camera : Component, Drawable {
 
   Shaders shaderHelper;
 
-  @property float Depth() { return float.min; };
+  @property float Depth() { return -float.infinity; };
 
   uint perspectiveMatrixUnif;
 
@@ -109,7 +109,7 @@ class Camera : Component, Drawable {
 
   void LoadResources() { };
 
-  void Draw() { 
+  void Draw() {
     if (changed) {
       cameraMatrix = identityMatrix.dup;
       cameraMatrix *= rotationMatrix(false, -rotation.phi, 1, 0, 0);
