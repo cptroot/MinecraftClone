@@ -206,5 +206,6 @@
   <File path="src\shaders.d" />
   <File path="shaders\triangle_shader.frag" />
   <File path="shaders\triangle_shader.vert" />
+  <File path="world.d" />
  </Folder>
 </DProject>
