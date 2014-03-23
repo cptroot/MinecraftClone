@@ -19,6 +19,13 @@ public struct Matrix {
   }
 
   alias mat this;
+
+  @property Matrix dup() {
+    Matrix result;
+    result.mat = mat.dup;
+    result.iterator = iterator;
+    return result;
+  }
 }
 
 @property Matrix identityMatrix() {
@@ -62,7 +69,7 @@ Matrix translationMatrix(bool permanent, float x, float y, float z) {
     Matrix result = Matrix();
     result = mat.dup;
     return result;
-  } else 
+  } else
     return mat;
 }
 
@@ -86,7 +93,7 @@ Matrix rotationMatrix(bool permanent, double angle, float x, float y, float z) {
   mat[9]  = iC * z * y + x * S;
   mat[10] = z * z + (1 - z * z) * C;
   mat[11] = 0;
-  
+
   mat[12] = 0;
   mat[13] = 0;
   mat[14] = 0;
