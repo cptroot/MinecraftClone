@@ -1,0 +1,17 @@
+{
+	"name": "minecraftclone",
+	"description": "A minimal D application.",
+	"copyright": "Copyright © 2014, edavis",
+	"authors": ["edavis"],
+	"dependencies": {
+    "derelict-gl3" : "~master",
+    "derelict-sdl2" : "~master",
+    "derelict-al" : "~master"
+	},
+  "sourcePaths": [
+    "src"
+  ],
+  "excludedSourceFiles": [
+    "*\winmain.d"
+  ]
+}
